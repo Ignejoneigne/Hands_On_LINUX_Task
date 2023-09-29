@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Update package lists and install Nginx
+sudo apt update
+sudo apt install -y nginx
+
+# Create user_admin user using adduser and set a password configurations
+sudo adduser --disabled-password user_admin
+
+# Clear the password for the user_admin user (make it empty)
+sudo passwd -d user_admin
+
+# Grant user_admin administrative privileges without password prompt
+echo "user_admin ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers.d/user_admin
+
+# Create a group named "maintainer"
+sudo groupadd maintainer
+
+# Add user_admin to the maintainer group
+sudo usermod -aG maintainer user_admin
+
+# Create user "director" and add to the "maintainer" group
+sudo useradd -g maintainer director
+
+# Create the /opt/archive directory if it doesn't exist
+sudo mkdir -p /opt/archive/
+
+# Create the output.txt file in the /opt/archive directory and give permissions
+sudo touch /opt/archive/output.txt
+sudo chmod 664 /opt/archive/output.txt
+
+# Change ownership and permissions of /opt/archive and its contents
+sudo chown -R user_admin:maintainer /opt/archive/
+
+
