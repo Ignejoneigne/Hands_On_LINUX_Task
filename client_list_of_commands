@@ -16,7 +16,7 @@ mv /tmp/nginx_archive.tar.gz /opt/archive/ >> /opt/archive/output.txt
 
 # 3. Change ownership of /opt/archive and its contents to 'director:maintainer'
 echo 3. Changing ownership of /opt/archive and its contents to 'director:maintainer' >> /opt/archive/output.txt
-chown -R director:maintainer /opt/archive >> /opt/archive/output.txt
+sudo chown -R director:maintainer /opt/archive >> /opt/archive/output.txt
 
 # To make sure everything is set up succesfully, execute those commands:
 #Check the permissions of /opt/archive
