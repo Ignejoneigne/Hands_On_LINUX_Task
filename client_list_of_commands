@@ -1,19 +1,25 @@
 #!/bin/bash
 
-#Connect to the EC2 Instance created in AWS and follow these steps:
+# Connect to the EC2 Instance created in AWS and follow these steps:
 
+# Execute the following commands as user_admin and save all executed commands and outputs in output.txt file.
 # Switch to the user_admin user
 sudo su - user_admin
 
-# Execute the following commands as user_admin and save all executed commands and outputs in output.txt file.
 # 1. Create an archive of /etc/nginx/ directory
-echo 1. Creating an archive of /etc/nginx/ directory >> /opt/archive/output.txt
-sudo tar -czvf /tmp/nginx_archive.tar.gz -C /etc/nginx . >> /opt/archive/output.txt
+echo 1. Creating an archive of /etc/nginx/ directory > /opt/archive/output.txt
+tar -czvf /tmp/nginx_archive.tar.gz -C /etc/nginx . >> /opt/archive/output.txt
 
 # 2. Move the archive to /opt/archive/
 echo 2. Moving the archive to /opt/archive/ >> /opt/archive/output.txt
-sudo mv /tmp/nginx_archive.tar.gz /opt/archive/ >> /opt/archive/output.txt
+mv /tmp/nginx_archive.tar.gz /opt/archive/ >> /opt/archive/output.txt
 
 # 3. Change ownership of /opt/archive and its contents to 'director:maintainer'
 echo 3. Changing ownership of /opt/archive and its contents to 'director:maintainer' >> /opt/archive/output.txt
-sudo chown -R director:maintainer /opt/archive/ >> /opt/archive/output.txt
+chown -R director:maintainer /opt/archive >> /opt/archive/output.txt
+
+# To make sure everything is set up succesfully, execute those commands:
+#Check the permissions of /opt/archive
+ls -l /opt/archive
+#View the contents of output.txt
+cat /opt/archive/output.txt
