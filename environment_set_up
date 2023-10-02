@@ -4,7 +4,7 @@
 sudo apt update
 sudo apt install -y nginx
 
-# Create user_admin user using adduser and set a password configurations
+# Create user_admin user using adduser and set password configurations
 sudo adduser --disabled-password user_admin
 
 # Clear the password for the user_admin user (make it empty)
@@ -16,20 +16,15 @@ echo "user_admin ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers.d/user_admi
 # Create a group named "maintainer"
 sudo groupadd maintainer
 
-# Add user_admin to the maintainer group
+# Add user_admin and director to the maintainer group
 sudo usermod -aG maintainer user_admin
-
-# Create user "director" and add to the "maintainer" group
-sudo useradd -g maintainer director
+sudo usermod -aG maintainer director
 
 # Create the /opt/archive directory if it doesn't exist
 sudo mkdir -p /opt/archive/
 
-# Create the output.txt file in the /opt/archive directory and give permissions
-sudo touch /opt/archive/output.txt
-sudo chmod 664 /opt/archive/output.txt
+# Change ownership of the /opt/archive directory and its contents to the maintainer group
+sudo chown -R :maintainer /opt/archive/
 
-# Change ownership and permissions of /opt/archive and its contents
-sudo chown -R user_admin:maintainer /opt/archive/
-
-
+# Set permissions for the /opt/archive directory and its contents to allow read, write, and execute by the group
+sudo chmod -R 775 
