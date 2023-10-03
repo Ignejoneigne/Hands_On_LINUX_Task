@@ -9,17 +9,15 @@ sudo su - user_admin
 # 1. Create an archive of /etc/nginx/ directory
 echo 1. Creating an archive of /etc/nginx/ directory > /opt/archive/output.txt
 tar -czvf /tmp/nginx_archive.tar.gz -C /etc/nginx . >> /opt/archive/output.txt
-
+clear
 # 2. Move the archive to /opt/archive/
 echo 2. Moving the archive to /opt/archive/ >> /opt/archive/output.txt
 mv /tmp/nginx_archive.tar.gz /opt/archive/ >> /opt/archive/output.txt
 
-# 3. Change ownership of /opt/archive and its contents to 'director:maintainer'
-echo 3. Changing ownership of /opt/archive and its contents to 'director:maintainer' >> /opt/archive/output.txt
-sudo chown -R director:maintainer /opt/archive >> /opt/archive/output.txt
+# 3. Make sure that ownership of /opt/archive and its contents to 'director:maintainer'
+echo 3. Checking ownership of /opt/archive and its contents to 'director:maintainer' >> /opt/archive/output.txt
+ls -ld /opt/archive/
+#sudo chown -R director:maintainer /opt/archive >> /opt/archive/output.txt
 
-# To make sure everything is set up succesfully, execute those commands:
-#Check the permissions of /opt/archive
-ls -l /opt/archive
-#View the contents of output.txt
+#To find executed commands and their outputs, view the contents of output.txt file
 cat /opt/archive/output.txt
